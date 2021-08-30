@@ -11,6 +11,10 @@ cap = cv2.VideoCapture(0)
 counter = 0
 show_of_hands = None
 
+class Person:
+    def __init__(self, hand_gesture):
+        self.hand_gesture = hand_gesture
+
 def calculate_angle(a,b,c):
     a=np.array(a)
     b=np.array(b)
@@ -49,9 +53,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                                 )
             if angle >100:
-                show_of_hands ="Down"
-            if angle <35 and show_of_hands =="Down":
-                show_of_hands ="Up"
+                show_of_hands = "Down"
+                hand_gesture = "Down"
+            if angle <35 and show_of_hands == "Down":
+                show_of_hands = "Up"
+                hand_gesture = "Up"
                 counter+=1
                 # print(counter)
                 # print(landmarks)
@@ -75,6 +81,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                                 mp_drawing.DrawingSpec(color=(245,66,230), thickness=2, circle_radius=2))
 
         cv2.imshow('Mediapipe' ,image)
+        person1 = Person(hand_gesture)
+        print(person1.hand_gesture)
 
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
