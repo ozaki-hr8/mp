@@ -55,7 +55,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         # 1. Draw face landmarks
-        mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACE_CONNECTIONS,
+        mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_CONTOURS,
                                  mp_drawing.DrawingSpec(color=(80,110,10), thickness=1, circle_radius=1),
                                  mp_drawing.DrawingSpec(color=(80,256,121), thickness=1, circle_radius=1)
                                  )
@@ -79,6 +79,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                                  )
         # Export coordinates
         try:
+            body_language_class = None
             landmarks = results.pose_landmarks.landmark
 
             shoulder = [landmarks[mp_holistic.PoseLandmark.RIGHT_SHOULDER.value].x,landmarks[mp_holistic.PoseLandmark.RIGHT_SHOULDER.value].y]
@@ -165,7 +166,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         cv2.imshow('Mediapipe', image)
         person1 = Person(hand_gesture,body_language_class)
         print(person1.hand_gesture,person1.expression)
-        
+
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 
