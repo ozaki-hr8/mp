@@ -12,13 +12,27 @@ with open('body_language_ub.pkl', 'rb') as f:
 mp_drawing = mp.solutions.drawing_utils
 mp_holistic =  mp.solutions.holistic
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(4)
+tm = cv2.TickMeter()
+tm.start()
+
+count = 0
+max_count = 10
+fps = 0
+delay = 1
 # Initiate holistic model
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
 
     while cap.isOpened():
         ret, frame = cap.read()
+        if count == max_count:
+            tm.stop()
+            fps = max_count / tm.getTimeSec()
+            tm.reset()
+            tm.start()
+            count = 0
 
+        cv2.putText(frame, 'FPS: {:.2f}'.format(fps),(180, 30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), thickness=2)
         # Recolor Feed
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image.flags.writeable = False
@@ -116,7 +130,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             pass
 
         cv2.imshow('Mediapipe', image)
-
+        count += 1
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 
