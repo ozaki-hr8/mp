@@ -10,6 +10,7 @@ cap = cv2.VideoCapture(0)
 
 counter = 0
 show_of_hands = None
+hand_gesture= "Down"
 
 class Person:
     def __init__(self, hand_gesture):
@@ -48,9 +49,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
             angle = calculate_angle(shoulder, elbow, wrist)
 
-            cv2.putText(image, str(angle),
+            cv2.putText(image, str(round(angle)),
                            tuple(np.multiply(elbow, [640, 480]).astype(int)),
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+                           cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 0), 2, cv2.LINE_AA
                                 )
             if angle >100:
                 show_of_hands = "Down"
@@ -70,9 +71,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         # cv2.putText(image,str(counter),
         #             (10,60),
         #             cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),2,cv2.LINE_AA)
-
-        cv2.putText(image,'show_of_hands',(65,12),
-                    cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1,cv2.LINE_AA)
+        cv2.putText(image,'Gesture',(65,12),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,0),1,cv2.LINE_AA)
         cv2.putText(image,show_of_hands,
                     (10,60),
                     cv2.FONT_HERSHEY_SIMPLEX,2,(255,255,255),2,cv2.LINE_AA)
