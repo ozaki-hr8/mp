@@ -100,19 +100,34 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
             # Get status box
-            cv2.rectangle(image, (0,0), (250, 60), (245, 117, 16), -1)
+            # cv2.rectangle(image, (0,0), (250, 60), (245, 117, 16), -1)
+            #
+            # # Display Class
+            # cv2.putText(image, 'CLASS'
+            #             , (95,12), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+            # cv2.putText(image, body_language_class.split(' ')[0]
+            #             , (90,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            #
+            # # Display Probability
+            # cv2.putText(image, 'PROB'
+            #             , (15,12), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+            # cv2.putText(image, str(round(body_language_prob[np.argmax(body_language_prob)],2))
+            #             , (10,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            image = cv2.copyMakeBorder(image, 150, 0, 0, 0, cv2.BORDER_CONSTANT, value=[245, 117, 16])
+            # Get status box
+            # cv2.rectangle(image, (0,0), (500, 60), (245, 117, 16), -1)
 
             # Display Class
-            cv2.putText(image, 'CLASS'
-                        , (95,12), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-            cv2.putText(image, body_language_class.split(' ')[0]
-                        , (90,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(image, 'Interaction'
+                        , (155,22), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (20, 20, 20), 2, cv2.LINE_AA)
+            cv2.putText(image, body_language_class
+                        , (150,90), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 3, cv2.LINE_AA)
 
             # Display Probability
-            cv2.putText(image, 'PROB'
-                        , (15,12), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
+            cv2.putText(image, 'Probability'
+                        , (15,22), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (20, 20, 20), 2, cv2.LINE_AA)
             cv2.putText(image, str(round(body_language_prob[np.argmax(body_language_prob)],2))
-                        , (10,40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                        , (10,90), cv2.FONT_HERSHEY_SIMPLEX, 1.7, (255, 255, 255), 3, cv2.LINE_AA)
 
         except:
             pass
