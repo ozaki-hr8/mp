@@ -10,7 +10,7 @@ mp_holistic =  mp.solutions.holistic
 
 cap = cv2.VideoCapture(0)
 
-class_name ="Walking"
+class_name ="Sitting"
 
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     while cap.isOpened():
