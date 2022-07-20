@@ -21,8 +21,6 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         results = holistic.process(image)
         image = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
-
-
         cv2.imshow('Mediapipe' ,image)
 
         if cv2.waitKey(10) & 0xFF == ord('q'):
