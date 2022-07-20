@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score # Accuracy metrics
 import pickle
 
-df = pd.read_csv('coords.csv')
+df = pd.read_csv('coords_ub.csv')
 X = df.drop('class', axis=1) # features
 y = df['class'] # target value
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1234)
@@ -31,5 +31,5 @@ for algo, model in fit_models.items():
     yhat = model.predict(X_test)
     print(algo, accuracy_score(y_test, yhat))
 
-with open('body_language.pkl', 'wb') as f:
+with open('body_language_ub.pkl', 'wb') as f:
     pickle.dump(fit_models['rf'], f)

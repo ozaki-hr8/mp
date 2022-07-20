@@ -23,7 +23,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
 
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        mp_drawing.draw_landmarks(image,results.face_landmarks, mp_holistic.FACE_CONNECTIONS,
+        mp_drawing.draw_landmarks(image,results.face_landmarks, mp_holistic.FACEMESH_TESSELATION,
                                 mp_drawing.DrawingSpec(color=(80,0,0),thickness=2,circle_radius=1),
                                 mp_drawing.DrawingSpec(color=(80,256,121),thickness=2,circle_radius=1)
                                 )
@@ -50,7 +50,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             row = pose_row+face_row
             row.insert(0,class_name)
 
-            with open('coords.csv',mode='a' ,newline='') as f:
+            with open('coords_ub.csv',mode='a' ,newline='') as f:
                 csv_writer =csv.writer(f, delimiter=',',quotechar='"',quoting=csv.QUOTE_MINIMAL)
                 csv_writer.writerow(row)
 
@@ -60,15 +60,15 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         cv2.imshow('Mediapipe' ,image)
 
         if cv2.waitKey(10) & 0xFF == ord('q'):
-            # num_coords = len(results.pose_landmarks.landmark)+len(results.face_landmarks.landmark)
-            #
-            # landmarks = ['class']
-            # for val in range(1, num_coords+1):
-            #     landmarks += ['x{}'.format(val), 'y{}'.format(val), 'z{}'.format(val), 'v{}'.format(val)]
-            #
-            # with open('coords.csv',mode='w' ,newline='') as f:
-            #     csv_writer =csv.writer(f, delimiter=',',quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            #     csv_writer.writerow(landmarks)
+            num_coords = len(results.pose_landmarks.landmark)+len(results.face_landmarks.landmark)
+            
+            landmarks = ['class']
+            for val in range(1, num_coords+1):
+                landmarks += ['x{}'.format(val), 'y{}'.format(val), 'z{}'.format(val), 'v{}'.format(val)]
+            
+            with open('coords_ub.csv',mode='w' ,newline='') as f:
+                csv_writer =csv.writer(f, delimiter=',',quotechar='"',quoting=csv.QUOTE_MINIMAL)
+                csv_writer.writerow(landmarks)
 
             break
 

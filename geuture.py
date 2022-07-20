@@ -6,7 +6,7 @@ mp_drawing = mp.solutions.drawing_utils
 #install pose estimation models
 mp_pose =  mp.solutions.pose
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(4)
 
 counter = 0
 show_of_hands = None
@@ -60,8 +60,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 show_of_hands = "Up"
                 hand_gesture = "Up"
                 counter+=1
-                # print(counter)
-                # print(landmarks)
+                
         except:
             pass
 

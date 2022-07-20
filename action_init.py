@@ -10,7 +10,6 @@ mp_holistic =  mp.solutions.holistic
 
 cap = cv2.VideoCapture(0)
 
-# obj_info = ['objx','objy','objw','objh','objdr','objdl']
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     while cap.isOpened():
         ret, frame = cap.read()
@@ -33,7 +32,6 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             for val in range(1, num_coords+1):
                 landmarks += ['x{}'.format(val), 'y{}'.format(val), 'z{}'.format(val), 'v{}'.format(val)]
 
-            # landmarks+=obj_info
             with open('action_training.csv',mode='w' ,newline='') as f:
                 csv_writer =csv.writer(f, delimiter=',',quotechar='"',quoting=csv.QUOTE_MINIMAL)
                 csv_writer.writerow(landmarks)
